@@ -123,5 +123,18 @@ test('Probar componente de Alertas', async ({ page }) => {
 
 });
 test('Probar componente de Botones', async ({ page }) => {
-  
+  await page.goto('https://demoqa.com/');
+  await page.getByRole('heading', { name: 'Elements' }).click();
+  await page.getByText('Buttons').click();
+  await page.getByRole('button', { name: 'Double Click Me' }).dblclick();
+  await expect(page.locator('#doubleClickMessage')).toContainText('You have done a double click');
+  await page.screenshot({path: 'Evidencias/Buttons/evidenciaDoubleClick.png', fullPage:true});
+  await page.getByRole('button', { name: 'Right Click Me' }).click({
+    button: 'right'
+  });
+  await expect(page.locator('#rightClickMessage')).toContainText('You have done a right click');
+  await page.screenshot({path: 'Evidencias/Buttons/evidenciaRightClick.png', fullPage:true});
+  await page.getByRole('button', { name: 'Click Me', exact: true }).click();
+  await expect(page.locator('#dynamicClickMessage')).toContainText('You have done a dynamic click');
+  await page.screenshot({path: 'Evidencias/Buttons/evidenciaClick.png', fullPage:true});
 });
